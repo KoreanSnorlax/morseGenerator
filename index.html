@@ -1,0 +1,142 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Morse</title>
+    <style>
+
+
+        
+        #app{
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+        .hText{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 50px;
+        }
+
+        .outPut{
+            border: black 1px outset;
+            height: 200px;
+            width: 50%;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: 1000;
+        }
+
+        .browsehappy{
+            font-size: 10px;
+        }
+            
+    </style>
+
+</head>
+
+<body>
+    <div id="app"></div>
+    
+    <script>
+        
+
+            // Model
+            const morseCodeArray =  [ 
+                '.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....',
+                '..', '.---', '-.-', '.-..', '--', '-.', '---', '.--.',
+                '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-',
+                '-.--', '--..', ' ', '·−·−', '−−−·', '·−−·−']; //4 siste er space, æ ,ø og å
+            let appDiv = document.getElementById('app');
+            let inputTekst = '';
+            let array = [];
+            let temp = '';
+            let morseKode = ''; 
+            let isString = false;
+            let isNumber = false;
+            
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ÆØÅ";
+
+            //View
+            show();
+            function show(){
+                appDiv.innerHTML = `
+                  <p class="hText">Morse Code Translator</p>
+                  <input type="text" onInput="inputTekst = this.value.toUpperCase()"> <button onClick="taInnTekst(inputTekst)">Translate</button>
+                  <br></br>
+                  <div class="outPut">${morseKode}</div>
+                  <p class="browsehappy">You are using an <strong>outdated and gay af</strong> browser. Please <a href="https://youtu.be/dQw4w9WgXcQ">upgrade your browser</a> to improve your experience.</p>
+                `;
+            }
+             
+            // Controller
+
+
+            function checkInput() {
+            let checkedString = checkIfNumber(inputTekst);
+            if (checkedString[1] == true) {
+                taInnTekst(tekstSomSkalBliMorse);
+            }
+        }
+            
+
+            function taInnTekst(tekstSomSkalBliMorse){
+                
+                
+                for (let i = 0; i < inputTekst.length; i++){
+                    for(let j= 0; j < characters.length; j++) {
+                        if(inputTekst.charCodeAt(i) == characters.charCodeAt(j)){
+                            temp = morseCodeArray[j];
+                            array.push(temp);
+                        }
+                    }
+                }
+                senderUtMorse();
+                fjernTekst();
+            }
+        
+            // checkIfNumber(inputTekst);
+
+            function checkIfNumber(tekstSomSkalBliMorse) {
+                for (let i = 0; i<tekstSomSkalBliMorse.length; i++) {
+                    isString = isNaN(tekstSomSkalBliMorse[i]);      
+                    if(!isString) {
+                        if(tekstSomSkalBliMorse[i] != ' ')  {
+                            isNumber = true;
+                        }
+                        } 
+                    else {                       
+                            isString = true;
+                    }
+                    
+                }
+                let myArray = [isNumber, isString];
+                return myArryay;
+            }
+            
+            function senderUtMorse(){
+                for(let i = 0; i < array.length; i++){
+                    morseKode += array[i] + ' ';
+                }
+                show();
+            }
+
+            function fjernTekst(){
+                inputTekst = '';
+                morseKode = '';
+                array = [];
+
+            }
+            // function sjekkeOmBokstav(){
+            //     for(let t = 0; t < inputText.length; t++){
+            //         if ( ){
+            //         }
+            //     }
+            // }
+                    
+    </script>
+
+
+
+</body>
+
+</html>
